@@ -1,27 +1,34 @@
 import { useState } from "react";
 import heroPerson from "@/assets/hero-person.jpg";
-import { ArrowDown, Send, CheckCircle } from "lucide-react";
+import { ArrowDown, Send, CheckCircle, Loader2 } from "lucide-react";
 
 const Index = () => {
   const [problem, setProblem] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [excuse, setExcuse] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (!problem.trim()) return;
+    setLoading(true);
     try {
-      await fetch("https://n8n.ivyside.in/webhook-test/44fae8e3-0b0d-4484-8643-96b1da8cdf16", {
+      const res = await fetch("https://n8n.ivyside.in/webhook-test/44fae8e3-0b0d-4484-8643-96b1da8cdf16", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ problem }),
       });
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setProblem("");
-      }, 3000);
+      const data = await res.text();
+      setExcuse(data);
     } catch (error) {
       console.error("Failed to submit:", error);
+      setExcuse("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleReset = () => {
+    setExcuse("");
+    setProblem("");
   };
 
   return (
