@@ -1,27 +1,34 @@
 import { useState } from "react";
 import heroPerson from "@/assets/hero-person.jpg";
-import { ArrowDown, Send, CheckCircle } from "lucide-react";
+import { ArrowDown, Send, CheckCircle, Loader2 } from "lucide-react";
 
 const Index = () => {
   const [problem, setProblem] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [excuse, setExcuse] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (!problem.trim()) return;
+    setLoading(true);
     try {
-      await fetch("https://n8n.ivyside.in/webhook-test/44fae8e3-0b0d-4484-8643-96b1da8cdf16", {
+      const res = await fetch("https://n8n.ivyside.in/webhook-test/44fae8e3-0b0d-4484-8643-96b1da8cdf16", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ problem }),
       });
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setProblem("");
-      }, 3000);
+      const data = await res.text();
+      setExcuse(data);
     } catch (error) {
       console.error("Failed to submit:", error);
+      setExcuse("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleReset = () => {
+    setExcuse("");
+    setProblem("");
   };
 
   return (
@@ -56,18 +63,24 @@ const Index = () => {
       <main className="flex-1 flex flex-col lg:flex-row min-h-screen">
         {/* Left Content */}
         <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-24 pb-12 lg:py-0">
-          {submitted ? (
+          {excuse ? (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-200">
               <div className="inline-flex items-center gap-2 mb-6">
                 <CheckCircle className="w-8 h-8 text-success" />
               </div>
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6 text-foreground">
-                You're On<br />
-                Your Way Out.
+                Here Is Your<br />
+                Excuse.
               </h1>
-              <p className="text-lg text-muted-foreground max-w-md">
-                Your problem has been submitted. Help is on the way — breathe easy.
-              </p>
+              <div className="max-w-lg bg-input rounded-lg px-5 py-4 text-base text-foreground mb-6">
+                {excuse}
+              </div>
+              <button
+                onClick={handleReset}
+                className="inline-flex items-center gap-3 bg-primary text-primary-foreground font-display font-bold text-sm tracking-[0.15em] uppercase px-10 py-4 rounded-lg hover:opacity-90 transition-all duration-150"
+              >
+                Try Another
+              </button>
             </div>
           ) : (
             <>
@@ -92,11 +105,20 @@ const Index = () => {
                 />
                 <button
                   onClick={handleSubmit}
-                  disabled={!problem.trim()}
+                  disabled={!problem.trim() || loading}
                   className="mt-4 inline-flex items-center gap-3 bg-primary text-primary-foreground font-display font-bold text-sm tracking-[0.15em] uppercase px-10 py-4 rounded-lg hover:opacity-90 transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  Get Me Outta This
-                  <Send className="w-4 h-4" />
+                  {loading ? (
+                    <>
+                      Working on it...
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Get Me Outta This
+                      <Send className="w-4 h-4" />
+                    </>
+                  )}
                 </button>
               </div>
             </>
