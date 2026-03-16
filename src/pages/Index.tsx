@@ -112,6 +112,10 @@ const Index = () => {
           />
         </div>
       </main>
+
+      <footer className="py-4 text-center text-xs text-muted-foreground tracking-widest uppercase">
+        Developed by Anish
+      </footer>
     </div>
   );
 };
