@@ -11,7 +11,7 @@ const Index = () => {
     if (!problem.trim()) return;
     setLoading(true);
     try {
-      const res = await fetch("https://n8n.ivyside.in/webhook-test/44fae8e3-0b0d-4484-8643-96b1da8cdf16", {
+      const res = await fetch("https://n8n.ivyside.in/webhook/44fae8e3-0b0d-4484-8643-96b1da8cdf16", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ problem }),
