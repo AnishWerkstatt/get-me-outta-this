@@ -1,6 +1,5 @@
 import { useState } from "react";
-import heroPerson from "@/assets/hero-person.jpg";
-import { ArrowDown, Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle } from "lucide-react";
 
 const Index = () => {
   const [problem, setProblem] = useState("");
@@ -18,89 +17,51 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="#" className="text-sm font-medium tracking-widest uppercase text-foreground/70 hover:text-foreground transition-colors">
-              How It Works
-            </a>
-            <a href="#" className="text-sm font-medium tracking-widest uppercase text-foreground/70 hover:text-foreground transition-colors">
-              Recent Escapes
-            </a>
-          </nav>
-
-          <div className="absolute left-1/2 -translate-x-1/2">
-            <h2 className="font-display text-lg font-bold tracking-[0.2em] uppercase">
-              Get Me Outta This
-            </h2>
-          </div>
-
-          <div className="hidden md:flex items-center gap-6">
-            <a href="#" className="text-sm font-medium tracking-widest uppercase text-foreground/70 hover:text-foreground transition-colors">
-              Support
-            </a>
-          </div>
-        </div>
+      <header className="px-6 py-6">
+        <h2 className="font-display text-sm font-bold tracking-[0.2em] uppercase text-center text-foreground">
+          Get Me Outta This
+        </h2>
       </header>
 
-      {/* Hero Section */}
-      <main className="flex-1 flex flex-col lg:flex-row min-h-screen">
-        {/* Left Content */}
-        <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-24 pb-12 lg:py-0">
+      {/* Main */}
+      <main className="flex-1 flex items-center justify-center px-6 pb-16">
+        <div className="w-full max-w-xl">
           {submitted ? (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-200">
-              <div className="inline-flex items-center gap-2 mb-6">
-                <CheckCircle className="w-8 h-8 text-success" />
-              </div>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6 text-foreground">
-                You're On<br />
-                Your Way Out.
+            <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-200">
+              <CheckCircle className="w-12 h-12 text-success mx-auto mb-6" />
+              <h1 className="font-display text-3xl md:text-4xl font-bold mb-3 text-foreground">
+                You're on your way out.
               </h1>
-              <p className="text-lg text-muted-foreground max-w-md">
-                Your problem has been submitted. Help is on the way — breathe easy.
+              <p className="text-muted-foreground">
+                Your problem has been submitted. Breathe easy.
               </p>
             </div>
           ) : (
-            <>
-              <div className="mb-8">
-                <ArrowDown className="w-5 h-5 text-muted-foreground animate-bounce" />
-              </div>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6 text-foreground">
-                Tell Us What's<br />
-                Got You Stuck.
+            <div className="text-center">
+              <h1 className="font-display text-3xl md:text-4xl font-bold mb-3 text-foreground">
+                What's got you stuck?
               </h1>
-              <p className="text-lg text-muted-foreground max-w-md mb-10">
-                Describe your problem below. We'll help you find a way out — fast.
+              <p className="text-muted-foreground mb-8">
+                Describe your problem. We'll help you find a way out.
               </p>
 
-              <div className="max-w-lg">
-                <textarea
-                  value={problem}
-                  onChange={(e) => setProblem(e.target.value)}
-                  placeholder="I need help with..."
-                  rows={5}
-                  className="w-full bg-input border-0 rounded-lg px-5 py-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none font-body"
-                />
-                <button
-                  onClick={handleSubmit}
-                  disabled={!problem.trim()}
-                  className="mt-4 inline-flex items-center gap-3 bg-primary text-primary-foreground font-display font-bold text-sm tracking-[0.15em] uppercase px-10 py-4 rounded-lg hover:opacity-90 transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  Get Me Outta This
-                  <Send className="w-4 h-4" />
-                </button>
-              </div>
-            </>
+              <textarea
+                value={problem}
+                onChange={(e) => setProblem(e.target.value)}
+                placeholder="I need help with..."
+                rows={5}
+                className="w-full bg-input border-0 rounded-lg px-5 py-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none font-body"
+              />
+              <button
+                onClick={handleSubmit}
+                disabled={!problem.trim()}
+                className="mt-4 inline-flex items-center gap-3 bg-primary text-primary-foreground font-display font-bold text-sm tracking-[0.15em] uppercase px-10 py-4 rounded-lg hover:opacity-90 transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Get Me Outta This
+                <Send className="w-4 h-4" />
+              </button>
+            </div>
           )}
-        </div>
-
-        {/* Right Image */}
-        <div className="flex-1 bg-hero-bg flex items-end justify-center overflow-hidden lg:min-h-screen">
-          <img
-            src={heroPerson}
-            alt="Person looking up with relief"
-            className="w-full max-w-md lg:max-w-lg xl:max-w-xl object-cover object-top h-[60vh] lg:h-[85vh]"
-          />
         </div>
       </main>
     </div>
