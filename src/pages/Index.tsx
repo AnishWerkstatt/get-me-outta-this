@@ -6,13 +6,22 @@ const Index = () => {
   const [problem, setProblem] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!problem.trim()) return;
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setProblem("");
-    }, 3000);
+    try {
+      await fetch("https://n8n.ivyside.in/webhook-test/44fae8e3-0b0d-4484-8643-96b1da8cdf16", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ problem }),
+      });
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setProblem("");
+      }, 3000);
+    } catch (error) {
+      console.error("Failed to submit:", error);
+    }
   };
 
   return (
