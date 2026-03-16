@@ -16,8 +16,8 @@ const Index = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ problem }),
       });
-      const data = await res.text();
-      setExcuse(data);
+      const data = await res.json();
+      setExcuse(data.output || "No excuse found. Try again!");
     } catch (error) {
       console.error("Failed to submit:", error);
       setExcuse("Something went wrong. Please try again.");
