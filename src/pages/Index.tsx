@@ -126,11 +126,11 @@ const Index = () => {
         </div>
 
         {/* Right Image - hidden on small screens, shown on lg+ */}
-        <div className="hidden lg:flex flex-1 bg-hero-bg items-end justify-center overflow-hidden lg:min-h-screen">
+        <div className="flex bg-hero-bg items-end justify-center overflow-hidden h-[40vh] lg:flex-1 lg:h-auto lg:min-h-screen">
           <img
             src={heroPerson}
             alt="Person looking up with relief"
-            className="w-full max-w-md lg:max-w-lg xl:max-w-xl object-cover object-top h-[85vh]"
+            className="w-full max-w-xs sm:max-w-sm lg:max-w-lg xl:max-w-xl object-cover object-top h-full lg:h-[85vh]"
           />
         </div>
       </main>
