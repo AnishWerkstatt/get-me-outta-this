@@ -62,7 +62,7 @@ const Index = () => {
       {/* Hero Section */}
       <main className="flex-1 flex flex-col lg:flex-row min-h-screen">
         {/* Left Content */}
-        <div className="flex-1 flex flex-col justify-center px-5 sm:px-8 md:px-16 lg:px-24 pt-20 sm:pt-24 pb-8 sm:pb-12 lg:py-0">
+        <div className="flex-1 flex flex-col justify-start pt-16 sm:pt-20 lg:justify-center lg:pt-0 px-5 sm:px-8 md:px-16 lg:px-24 pb-8 sm:pb-12">
           {excuse ? (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-200">
               <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
